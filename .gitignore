@@ -1,0 +1,3 @@
+awsec2-jenkins/.terraform/
+awsec2-jenkins/.terraform*
+awsec2-jenkins/terraform.tfstate

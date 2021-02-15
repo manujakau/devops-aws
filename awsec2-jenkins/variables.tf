@@ -1,5 +1,5 @@
 variable "profile" {
-  default = "manuja-cli"
+  default = "default"
 }
 variable "region" {
   default = "eu-central-1"

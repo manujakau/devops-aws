@@ -6,11 +6,11 @@ data "template_file" "init-script" {
 }
 
 data "template_file" "shell-script-1" {
-  template = file("scripts/sslcert.sh")
+  template = file("scripts/java.sh")
 }
 
 data "template_file" "shell-script-2" {
-  template = file("scripts/nginx.sh")
+  template = file("scripts/jenkins.sh")
 }
 
 data "template_cloudinit_config" "cloudinit-example" {
