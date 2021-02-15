@@ -1,3 +1,4 @@
 awsec2-jenkins/.terraform/
 awsec2-jenkins/.terraform*
 awsec2-jenkins/terraform.tfstate
+awsec2-jenkins/terraform.tfstate.backup
