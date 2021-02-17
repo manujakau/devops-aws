@@ -6,3 +6,5 @@ sudo yum -y install jenkins
 
 sudo service jenkins start
 sudo chkconfig jenkins on
+
+sudo yum -y install git

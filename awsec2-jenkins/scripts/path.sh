@@ -1,0 +1,21 @@
+#!/bin/bash
+cd ~
+cat <<EOF | sudo tee .bash_profile
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+JAVA_HOME=$(find /usr/lib/jvm/java-1.8* | head -n 3 | grep "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0*")
+M2_HOME=/opt/maven/apache-maven-3.6.1
+M2=$M2_HOME/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+export PATH
+EOF
+
+sudo hostnamectl set-hostname jenkins
