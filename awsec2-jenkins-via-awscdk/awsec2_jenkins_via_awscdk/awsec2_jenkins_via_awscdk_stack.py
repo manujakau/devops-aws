@@ -53,7 +53,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
             vpc_subnets=aws_ec2.SubnetSelection(
                 subnet_type=aws_ec2.SubnetType.PUBLIC
             ),
-            key_name="SAA-C01",
+            key_name="WP",
             user_data=aws_ec2.UserData.custom(user_data)
         )
 
