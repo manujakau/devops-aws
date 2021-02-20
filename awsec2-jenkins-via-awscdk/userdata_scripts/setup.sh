@@ -12,9 +12,9 @@ sudo chkconfig jenkins on
 sudo yum -y install git
 
 sudo mkdir /opt/maven && cd /opt/maven
-wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
-tar -xvzf apache-maven-3.6.1-bin.tar.gz
-mv apache-maven-3.6.1 maven
+sudo wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+sudo tar -xvzf apache-maven-3.6.1-bin.tar.gz
+sudo mv apache-maven-3.6.1 maven
 
 cd ~
 cat <<EOF | sudo tee .bash_profile
