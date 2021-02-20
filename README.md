@@ -12,7 +12,6 @@ terraform apply
 Create jenkins server using aws-cdk
 ```
 cd awsec2-jenkins-via-awscdk
-$ cdk init app --language python
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 $ pip3 install -r requirements.txt
