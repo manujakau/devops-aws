@@ -1,9 +1,7 @@
-from os import name
 from aws_cdk import (
     core,
     aws_ec2
 )
-
 
 class Awsec2JenkinsViaAwscdkStack(core.Stack):
 
@@ -16,7 +14,6 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         custom_vpc = aws_ec2.Vpc(
             self,
             "DevopsVpcID",
-            name="DevOpsVPC",
             cidr=prod_config['vpc_config']['vpc_cidr'],
             max_azs=2,
             nat_gateways=1,
@@ -61,6 +58,10 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
 
         #allow web traffic
         test_server.connections.allow_from_any_ipv4(
-            aws_ec2.Port.tcp(80),
-            description="allow web traffic"
+            aws_ec2.Port.tcp(8080),
+            description="allow web"
+        )
+        test_server.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(22),
+            description="allow ssh"
         )
