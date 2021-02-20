@@ -32,6 +32,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
 
         #simple tagging
         core.Tags.of(custom_vpc).add("Owner", "Admin")
+        core.Tags.of(custom_vpc).add("Name", "DevOpsVPC")
 
         #import user-data scripts
         with open("userdata_scripts/setup.sh", mode="r") as file:
