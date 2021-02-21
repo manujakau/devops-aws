@@ -20,6 +20,15 @@ $ cdk ls
 $ cdk deploy
 ```
 
+Set PATH for java and maven
+```
+ssh -i "<key.pem>" ec2-user@xxx.xxx.xxx.xxx
+vim ~/.bash_profile
+JAVA_HOME=$(find /usr/lib/jvm/java-1.8* | head -n 3 | grep "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0*")
+M2_HOME=/opt/maven
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2_HOME/bin
+```
+
 Get admin password for setup jenkins config
 ```
 ssh -i "<key.pem>" ec2-user@xxx.xxx.xxx.xxx
