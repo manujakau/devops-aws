@@ -1,4 +1,5 @@
-awsec2-jenkins/.terraform/
-awsec2-jenkins/.terraform*
-awsec2-jenkins/terraform.tfstate
-awsec2-jenkins/terraform.tfstate.backup
+awsec2-jenkins-via-terraform/.terraform/
+awsec2-jenkins-via-terraform/.terraform*
+awsec2-jenkins-via-terraform/terraform.tfstate
+awsec2-jenkins-via-terraform/terraform.tfstate.backup
+awsec2-jenkins-via-awscdk/.venv
