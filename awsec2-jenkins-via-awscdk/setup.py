@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="awsec2_jenkins_via_awscdk"),
 
     install_requires=[
-        "aws-cdk.core==1.90.1",
+        "aws-cdk.core==1.91.0",
     ],
 
     python_requires=">=3.6",
