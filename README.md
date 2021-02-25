@@ -40,6 +40,8 @@ comment below block in all above context.xml
 like:
 <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
          allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+$ tomcatdown && tomcatup
 ```
 
 Get admin password for setup jenkins config
