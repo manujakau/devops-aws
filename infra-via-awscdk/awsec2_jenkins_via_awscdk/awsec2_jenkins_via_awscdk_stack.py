@@ -37,8 +37,11 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         #import user-data scripts
         with open("userdata_scripts/setup.sh", mode="r") as file:
             user_data = file.read()
+        
+        with open("userdata_scripts/tomcat.sh", mode="r") as file:
+            user_data2 = file.read()
 
-        #ec2
+        #ec2-jenkins
         test_server = aws_ec2.Instance(
             self,
             "ec2id",
@@ -63,6 +66,39 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
             description="allow web"
         )
         test_server.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(22),
+            description="allow ssh"
+        )
+
+        #ec2-tomcat
+        test_server2 = aws_ec2.Instance(
+            self,
+            "ec2id2",
+            instance_type=aws_ec2.InstanceType(instance_type_identifier="t2.micro"),
+            instance_name="Tomcat-Host",
+            machine_image=aws_ec2.MachineImage.generic_linux(ami_map=
+                {
+                    "eu-central-1": "ami-03c3a7e4263fd998c"
+                }
+            ),
+            vpc=custom_vpc,
+            vpc_subnets=aws_ec2.SubnetSelection(
+                subnet_type=aws_ec2.SubnetType.PUBLIC
+            ),
+            key_name="WP",
+            user_data=aws_ec2.UserData.custom(user_data2)
+        )
+
+        #allow web traffic
+        test_server2.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(8080),
+            description="allow web"
+        )
+        test_server2.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(8090),
+            description="allow web"
+        )
+        test_server2.connections.allow_from_any_ipv4(
             aws_ec2.Port.tcp(22),
             description="allow ssh"
         )
