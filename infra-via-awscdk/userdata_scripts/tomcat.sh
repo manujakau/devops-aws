@@ -10,4 +10,4 @@ sudo chmod +x /opt/tomcat/bin/startup.sh
 sudo chmod +x /opt/tomcat/bin/shutdown.sh
 sudo ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
 sudo ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
-sudo tomcatup
+tomcatup
