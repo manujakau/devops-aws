@@ -1,5 +1,5 @@
 infra-via-terraform/.terraform/
-infra-terraform/.terraform*
-infra-terraform/terraform.tfstate
-infra-terraform/terraform.tfstate.backup
-infra-awscdk/.venv
+infra-via-terraform/.terraform*
+infra-via-terraform/terraform.tfstate
+infra-via-terraform/terraform.tfstate.backup
+infra-via-awscdk/.venv
