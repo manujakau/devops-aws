@@ -44,6 +44,20 @@ like:
 $ tomcatdown && tomcatup
 ```
 
+Tomcat Admin
+```
+$ vim /opt/tomcat/conf/tomcat-users.xml
+
+add below within tomcat-users block. Change values as prefer.
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+  <user username="deployer" password="deployer" roles="manager-script"/>
+  <user username="tomcat" password="tomcat123" roles="manager-gui"/>
+```
+
 Get admin password for setup jenkins config
 ```
 ssh -i "<key.pem>" ec2-user@xxx.xxx.xxx.xxx
