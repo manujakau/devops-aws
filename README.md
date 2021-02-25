@@ -20,13 +20,26 @@ $ cdk ls
 $ cdk deploy
 ```
 
-Set PATH for java and maven
+Set PATH for java and maven in Jenkins-Host
 ```
 ssh -i "<key.pem>" ec2-user@xxx.xxx.xxx.xxx
 vim ~/.bash_profile
 JAVA_HOME=$(find /usr/lib/jvm/java-1.8* | head -n 3 | grep "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0*")
 M2_HOME=/usr/local/maven
 PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2_HOME/bin
+```
+
+Conficgure Tomcat-Host
+```
+$ find / -name context.xml
+$ vim /opt/tomcat/webapps/host-manager/META-INF/context.xml  and /opt/tomcat/webapps/manager/META-INF/context.xml
+comment below block in all above context.xml
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+
+like:
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
 ```
 
 Get admin password for setup jenkins config
