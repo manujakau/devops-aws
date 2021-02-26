@@ -79,3 +79,7 @@ Install below jenkins plugins:
   Maven Integration,
   Maven Invoker,
   Deploy to container
+
+
+Ex: for tomcat test deployment config within the mavaen ci/cd pipeline.
+![tomcat-deploy-job-config](https://user-images.githubusercontent.com/44127516/109269330-03e64100-7815-11eb-8278-f1d9556f8a0b.jpg)
