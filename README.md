@@ -82,4 +82,4 @@ Install below jenkins plugins:
 
 
 Ex: for tomcat test deployment config within the mavaen ci/cd pipeline.
-![tomcat-deploy-job-config](https://user-images.githubusercontent.com/44127516/109269330-03e64100-7815-11eb-8278-f1d9556f8a0b.jpg)
+![tomcat-deploy-job-config](https://user-images.githubusercontent.com/44127516/109269679-81aa4c80-7815-11eb-9157-72d9ba73db2e.jpg)
