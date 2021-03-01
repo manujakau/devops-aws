@@ -83,3 +83,17 @@ Install below jenkins plugins:
 
 Ex: for tomcat test deployment config within the mavaen ci/cd pipeline.
 ![tomcat-deploy-job-config](https://user-images.githubusercontent.com/44127516/109269679-81aa4c80-7815-11eb-9157-72d9ba73db2e.jpg)
+
+
+Setup Docker connectivity to Jenkins
+
+Install below jenkins plugins:
+Publish Over SSH
+
+```
+ssh -i "<key.pem>" ec2-user@<docker-host>
+vim /etc/ssh/sshd_config #chnage PasswordAuthentication no > PasswordAuthentication yes
+systemctl reload sshd
+```
+and add onfiguration to jenkins like below image.
+![docker-ssh-jenkins](https://user-images.githubusercontent.com/44127516/109467497-ecf15a00-7a73-11eb-8fbf-d22a6bfea4b8.jpg)
