@@ -44,6 +44,9 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         with open("userdata_scripts/docker.sh", mode="r") as file:
             user_data3 = file.read()
 
+        with open("userdata_scripts/ansible.sh", mode="r") as file:
+            user_data4 = file.read()
+
         #ec2-jenkins
         test_server = aws_ec2.Instance(
             self,
@@ -131,6 +134,35 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
             description="allow web"
         )
         test_server2.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(22),
+            description="allow ssh"
+        )
+
+        #ec2-ansible
+        test_server4 = aws_ec2.Instance(
+            self,
+            "ec2id4",
+            instance_type=aws_ec2.InstanceType(instance_type_identifier="t2.micro"),
+            instance_name="Ansible-Host",
+            machine_image=aws_ec2.MachineImage.generic_linux(ami_map=
+                {
+                    "eu-central-1": "ami-02f9ea74050d6f812"
+                }
+            ),
+            vpc=custom_vpc,
+            vpc_subnets=aws_ec2.SubnetSelection(
+                subnet_type=aws_ec2.SubnetType.PUBLIC
+            ),
+            key_name="WP",
+            user_data=aws_ec2.UserData.custom(user_data4)
+        )
+
+        #allow web traffic
+        test_server4.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(8080),
+            description="allow web"
+        )
+        test_server4.connections.allow_from_any_ipv4(
             aws_ec2.Port.tcp(22),
             description="allow ssh"
         )
