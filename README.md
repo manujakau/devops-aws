@@ -97,3 +97,6 @@ systemctl reload sshd
 ```
 and add onfiguration to jenkins like below image.
 ![docker-ssh-jenkins](https://user-images.githubusercontent.com/44127516/109467497-ecf15a00-7a73-11eb-8fbf-d22a6bfea4b8.jpg)
+
+Postbuild config for app publish into container job
+![publish-app-to-container](https://user-images.githubusercontent.com/44127516/109615561-b92e3700-7b3c-11eb-8c53-50659dabfdca.jpg)
