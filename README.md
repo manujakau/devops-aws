@@ -115,3 +115,5 @@ vim /etc/ansible/hosts # add docker-host private ip and localhost
 ssh-copy-id ansadmin@<docker-host>
 ssh-copy-id localhost
 ```
+Set ssh access to ansible host via jenkins
+![ansible-ssh-jenkins](https://user-images.githubusercontent.com/44127516/109640457-2d76d380-7b59-11eb-9046-bc6ac9470c9e.jpg)
