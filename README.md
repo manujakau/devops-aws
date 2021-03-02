@@ -100,3 +100,18 @@ and add onfiguration to jenkins like below image.
 
 Postbuild config for app publish into container job
 ![publish-app-to-container](https://user-images.githubusercontent.com/44127516/109615561-b92e3700-7b3c-11eb-8c53-50659dabfdca.jpg)
+
+Setup Ansible and ansible connectivity with Docker-host
+
+```
+ssh -i "<key.pem>" ec2-user@<docker-host>
+sudo useradd ansadmin
+```
+```
+ssh -i "<key.pem>" ec2-user@<ansible-host>
+su - ansadmin
+ssh-keygen
+vim /etc/ansible/hosts # add docker-host private ip and localhost
+ssh-copy-id ansadmin@<docker-host>
+ssh-copy-id localhost
+```
