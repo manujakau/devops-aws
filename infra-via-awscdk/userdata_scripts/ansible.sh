@@ -13,3 +13,4 @@ sudo usermod -aG docker ansadmin
 
 sudo echo "ansadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 sed -i "s/PasswordAuthentication.*/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+sudo systemctl reload sshd
