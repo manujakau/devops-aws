@@ -131,10 +131,13 @@ cat <<EOF | sudo tee /opt/docker/test-container.yml
   tasks:
   - name: stop exsiting containers
     command: docker stop devops-container
+    ignore_errors: yes
   - name: remove exsiting containers
     command: docker rm devops-container
+    ignore_errors: yes
   - name: remove related images
     command: docker rmi devops-image
+    ignore_errors: yes
   - name: building docker image
     command: docker build -t devops-image .
     args:
