@@ -129,9 +129,17 @@ cat <<EOF | sudo tee /opt/docker/test-container.yml
 - hosts: all
   become: true
   tasks:
+  - name: stop exsiting containers
+    command: docker stop devops-container
+  - name: remove exsiting containers
+    command: docker rm devops-container
+  - name: remove related images
+    command: docker rmi devops-image
   - name: building docker image
-    command: docker build -t simple-devops-image .
+    command: docker build -t devops-image .
     args:
       chdir: /opt/docker
+  - name: start container
+    command: docker run -d --name devops-container -p 8080:8080 devops-image
 EOF
 ```
