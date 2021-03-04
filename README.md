@@ -205,5 +205,5 @@ Modify test-container.yml as below
 
   - name: start container
     command: docker run -d --name devops-container -p 8080:8080 manuja/devops-image:latest
-EOF
+    
 ```
