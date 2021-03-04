@@ -161,7 +161,7 @@ sudo touch "/opt/docker/forge-image.yml"
 cat <<EOF | sudo tee /opt/docker/forge-image.yml
 ---
 - hosts: all
-  become: yes
+  become: true
 
   tasks:
   - name: create image
@@ -205,5 +205,13 @@ Modify test-container.yml as below
 
   - name: start container
     command: docker run -d --name devops-container -p 8080:8080 manuja/devops-image:latest
-    
+
 ```
+
+Limit to execute ansible-playbooks on specific hosts
+```
+ansible-playbook -i /opt/docker/hosts /opt/docker/forge-image.yml --limit localhost;
+
+ansible-playbook -i /opt/docker/hosts /opt/docker/test-container.yml --limit 10.192.0.229;
+```
+![ansible-on-specific-hosts](https://user-images.githubusercontent.com/44127516/109943020-693aa600-7cdd-11eb-9dd2-98936a17abaf.jpg)
