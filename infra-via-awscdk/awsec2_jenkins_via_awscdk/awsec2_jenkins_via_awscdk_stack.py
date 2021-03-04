@@ -35,27 +35,27 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         core.Tags.of(custom_vpc).add("Name", "DevOpsVPC")
 
         #import user-data scripts
-        with open("userdata_scripts/setup.sh", mode="r") as file:
-            user_data = file.read()
+        with open("userdata_scripts/jenkins.sh", mode="r") as file:
+            jenkins_user_data = file.read()
         
         with open("userdata_scripts/tomcat.sh", mode="r") as file:
-            user_data2 = file.read()
+            tomcat_user_data = file.read()
 
         with open("userdata_scripts/docker.sh", mode="r") as file:
-            user_data3 = file.read()
+            docker_user_data = file.read()
 
         with open("userdata_scripts/ansible.sh", mode="r") as file:
-            user_data4 = file.read()
+            ansible_user_data = file.read()
 
         #ec2-jenkins
         test_server = aws_ec2.Instance(
             self,
             "ec2id",
-            instance_type=aws_ec2.InstanceType(instance_type_identifier="t2.micro"),
+            instance_type=aws_ec2.InstanceType(instance_type_identifier="t2.medium"),
             instance_name="Jenkins-Host",
             machine_image=aws_ec2.MachineImage.generic_linux(ami_map=
                 {
-                    "eu-central-1": "ami-03c3a7e4263fd998c"
+                    "eu-central-1": "ami-02f9ea74050d6f812"
                 }
             ),
             vpc=custom_vpc,
@@ -63,7 +63,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
                 subnet_type=aws_ec2.SubnetType.PUBLIC
             ),
             key_name="WP",
-            user_data=aws_ec2.UserData.custom(user_data)
+            user_data=aws_ec2.UserData.custom(jenkins_user_data)
         )
 
         #allow web traffic
@@ -92,7 +92,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
 #                subnet_type=aws_ec2.SubnetType.PUBLIC
 #            ),
 #            key_name="WP",
-#            user_data=aws_ec2.UserData.custom(user_data2)
+#            user_data=aws_ec2.UserData.custom(tomcat_user_data)
 #        )
 #
 #        #allow web traffic
@@ -125,7 +125,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
                 subnet_type=aws_ec2.SubnetType.PUBLIC
             ),
             key_name="WP",
-            user_data=aws_ec2.UserData.custom(user_data3)
+            user_data=aws_ec2.UserData.custom(docker_user_data)
         )
 
         #allow web traffic
@@ -154,7 +154,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
                 subnet_type=aws_ec2.SubnetType.PUBLIC
             ),
             key_name="WP",
-            user_data=aws_ec2.UserData.custom(user_data4)
+            user_data=aws_ec2.UserData.custom(ansible_user_data)
         )
 
         #allow web traffic
