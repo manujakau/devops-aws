@@ -149,3 +149,32 @@ EOF
 
 To deploy containerize application via ansible have to modify ci/cd job as below example. 
 ![container-via-ansible](https://user-images.githubusercontent.com/44127516/109922406-f2de7980-7cc5-11eb-947b-3d73069efffc.jpg)
+
+
+To build and push iamge to dockerhub
+```
+sudo touch "/opt/docker/forge-image.yml"
+cat <<EOF | sudo tee /opt/docker/forge-image.yml
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: create image
+    command: docker build -t devops-image:latest .
+    args:
+      chdir: /opt/docker
+  
+  - name: tag image
+    command: docker tag devops-image manuja/devops-image
+
+  - name: push image
+    command: docker push manuja/devops-image
+  
+  - name: remove image from local repo
+    command: docker rmi devops-image:latest manuja/devops-image
+    ignore_errors: yes
+EOF
+
+ansible-playbook -i hosts test-container.yml --check
+```
