@@ -146,3 +146,6 @@ cat <<EOF | sudo tee /opt/docker/test-container.yml
     command: docker run -d --name devops-container -p 8080:8080 devops-image
 EOF
 ```
+
+To deploy containerize application via ansible have to modify ci/cd job as below example. 
+![container-via-ansible](https://user-images.githubusercontent.com/44127516/109922406-f2de7980-7cc5-11eb-947b-3d73069efffc.jpg)
