@@ -118,3 +118,20 @@ ssh-copy-id localhost
 Set ssh access to ansible host via jenkins: 
 jenkins dashboard --> Manage Jenkins --> configure system --> Publish over SSH
 ![ansible-ssh-jenkins](https://user-images.githubusercontent.com/44127516/109640457-2d76d380-7b59-11eb-9046-bc6ac9470c9e.jpg)
+
+In ansible host create below files.
+```
+sudo mkdir -R /opt/docker
+sudo chown -R ansadmin /opt/docker
+sudo touch "/opt/docker/test-container.yml"
+cat <<EOF | sudo tee /opt/docker/test-container.yml
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: building docker image
+    command: docker build -t simple-devops-image .
+    args:
+      chdir: /opt/docker
+EOF
+```
