@@ -132,16 +132,20 @@ cat <<EOF | sudo tee /opt/docker/test-container.yml
   - name: stop exsiting containers
     command: docker stop devops-container
     ignore_errors: yes
+
   - name: remove exsiting containers
     command: docker rm devops-container
     ignore_errors: yes
+
   - name: remove related images
     command: docker rmi devops-image
     ignore_errors: yes
+
   - name: building docker image
     command: docker build -t devops-image .
     args:
       chdir: /opt/docker
+
   - name: start container
     command: docker run -d --name devops-container -p 8080:8080 devops-image
 EOF
@@ -177,4 +181,29 @@ cat <<EOF | sudo tee /opt/docker/forge-image.yml
 EOF
 
 ansible-playbook -i hosts test-container.yml --check
+```
+Modify test-container.yml as below
+```
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: stop exsiting containers
+    command: docker stop devops-container
+    ignore_errors: yes
+
+  - name: remove exsiting containers
+    command: docker rm devops-container
+    ignore_errors: yes
+
+  - name: remove related images
+    command: docker rmi manuja/devops-image:latest
+    ignore_errors: yes
+
+  - name: pull image from hub
+    command: docker pull manuja/devops-image:latest
+
+  - name: start container
+    command: docker run -d --name devops-container -p 8080:8080 manuja/devops-image:latest
+EOF
 ```
