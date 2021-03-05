@@ -188,7 +188,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
                 subnet_type=aws_ec2.SubnetType.PUBLIC
             ),
             key_name="WP",
-            user_data=aws_ec2.UserData.custom(ansible_user_data)
+            user_data=aws_ec2.UserData.custom(kubernetes_user_data)
         )
 
         #allow web traffic
