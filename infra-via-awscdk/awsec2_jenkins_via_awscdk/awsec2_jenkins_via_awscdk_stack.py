@@ -1,6 +1,7 @@
 from aws_cdk import (
     core,
-    aws_ec2
+    aws_ec2,
+    aws_iam
 )
 
 class Awsec2JenkinsViaAwscdkStack(core.Stack):
@@ -46,6 +47,9 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
 
         with open("userdata_scripts/ansible.sh", mode="r") as file:
             ansible_user_data = file.read()
+
+        with open("userdata_scripts/kubernetes.sh", mode="r") as file:
+            kubernetes_user_data = file.read()
 
         #ec2-jenkins
         test_server = aws_ec2.Instance(
@@ -165,4 +169,61 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         test_server4.connections.allow_from_any_ipv4(
             aws_ec2.Port.tcp(22),
             description="allow ssh"
+        )
+
+
+        #ec2-k8s
+        test_server5 = aws_ec2.Instance(
+            self,
+            "ec2id5",
+            instance_type=aws_ec2.InstanceType(instance_type_identifier="t2.small"),
+            instance_name="K8s-Host",
+            machine_image=aws_ec2.MachineImage.generic_linux(ami_map=
+                {
+                    "eu-central-1": "ami-0767046d1677be5a0"
+                }
+            ),
+            vpc=custom_vpc,
+            vpc_subnets=aws_ec2.SubnetSelection(
+                subnet_type=aws_ec2.SubnetType.PUBLIC
+            ),
+            key_name="WP",
+            user_data=aws_ec2.UserData.custom(ansible_user_data)
+        )
+
+        #allow web traffic
+        test_server5.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(8080),
+            description="allow web"
+        )
+        test_server5.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(22),
+            description="allow ssh"
+        )
+
+        # add permission to k8s instances profile
+        test_server5.role.add_managed_policy(
+            aws_iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonSSMManagedInstanceCore"
+            )
+        )
+        test_server5.role.add_managed_policy(
+            aws_iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonS3FullAccess"
+            )
+        )
+        test_server5.role.add_managed_policy(
+            aws_iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonRoute53FullAccess"
+            )
+        )
+        test_server5.role.add_managed_policy(
+            aws_iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonEC2FullAccess"
+            )
+        )
+        test_server5.role.add_managed_policy(
+            aws_iam.ManagedPolicy.from_aws_managed_policy_name(
+                "IAMFullAccess"
+            )
         )
