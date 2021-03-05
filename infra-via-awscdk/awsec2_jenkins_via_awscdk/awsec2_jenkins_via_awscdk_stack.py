@@ -1,7 +1,9 @@
 from aws_cdk import (
     core,
     aws_ec2,
-    aws_iam
+    aws_iam,
+    aws_route53,
+    aws_s3
 )
 
 class Awsec2JenkinsViaAwscdkStack(core.Stack):
@@ -226,4 +228,21 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
             aws_iam.ManagedPolicy.from_aws_managed_policy_name(
                 "IAMFullAccess"
             )
+        )
+
+        #k8s zone records
+        host_zone = aws_route53.PrivateHostedZone(
+            self,
+            "HostedZone",
+            zone_name="k8stt-test.com",
+            vpc=custom_vpc
+        )
+
+        #k8s s3 bucket
+        k8s_bucket = aws_s3.Bucket(
+            self,
+            "k8sBucket",
+            bucket_name="k8stt-test.com",
+            versioned=True,
+            removal_policy=core.RemovalPolicy.DESTROY
         )
