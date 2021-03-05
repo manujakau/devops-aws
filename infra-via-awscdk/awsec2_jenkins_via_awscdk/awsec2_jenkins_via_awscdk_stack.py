@@ -242,7 +242,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         k8s_bucket = aws_s3.Bucket(
             self,
             "k8sBucket",
-            bucket_name="k8stt-test.com",
+            bucket_name="demo-k8stt-test.com",
             versioned=True,
             removal_policy=core.RemovalPolicy.DESTROY
         )

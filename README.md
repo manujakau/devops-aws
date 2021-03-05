@@ -216,3 +216,13 @@ ansible-playbook -i /opt/docker/hosts /opt/docker/forge-image.yml --limit localh
 ansible-playbook -i /opt/docker/hosts /opt/docker/test-container.yml --limit 10.192.0.229
 ```
 ![ansible-on-specific-hosts](https://user-images.githubusercontent.com/44127516/109943020-693aa600-7cdd-11eb-9dd2-98936a17abaf.jpg)
+
+# Setup K8s 
+log into k8s-host
+```
+sudo su -
+aws configure # only requred to have region
+export KOPS_STATE_STORE=s3://demo-k8stt-test.com
+ssh-keygen
+kops create cluster --cloud=aws --zones=eu-central-1a --name=demo-k8stt-test.com --dns-zone=k8stt-test.com --dns private
+```
