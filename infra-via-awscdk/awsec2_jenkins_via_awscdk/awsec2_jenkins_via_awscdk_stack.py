@@ -234,7 +234,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         host_zone = aws_route53.PrivateHostedZone(
             self,
             "HostedZone",
-            zone_name="k8stt-test.com",
+            zone_name="k8stest.com",
             vpc=custom_vpc
         )
 
@@ -242,7 +242,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         k8s_bucket = aws_s3.Bucket(
             self,
             "k8sBucket",
-            bucket_name="demo-k8stt-test.com",
+            bucket_name="demok8stest.com",
             versioned=True,
             removal_policy=core.RemovalPolicy.DESTROY
         )
