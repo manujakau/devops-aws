@@ -217,8 +217,10 @@ ansible-playbook -i /opt/docker/hosts /opt/docker/test-container.yml --limit 10.
 ```
 ![ansible-on-specific-hosts](https://user-images.githubusercontent.com/44127516/109943020-693aa600-7cdd-11eb-9dd2-98936a17abaf.jpg)
 
+
+### Setup K8s 
 yet to complete..
-## Setup K8s 
+
 log into k8s-host
 ```
 sudo su -
