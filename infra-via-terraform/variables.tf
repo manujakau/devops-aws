@@ -1,35 +1,27 @@
-variable "profile" {
-  default = "default"
+variable "profile" {}
+
+variable "aws_region" {}
+
+#------ storage variables
+
+variable "project_name" {}
+
+#-------networking variables
+
+variable "vpc_cidr" {}
+
+variable "public_cidrs" {
+  type = list(string)
 }
-variable "region" {
-  default = "eu-central-1"
-}
-variable "vpc" {
-  default = "vpc-1f39b977"
-}
-variable "subnet" {
-  default = "subnet-b7edd7fd"
-}
-variable "instanceType" {
-  default = "t2.micro"
-}
-variable "keyName" {
-  default = "SAA-C01"
-}
-variable "instanceName" {
-  default = "jenkins-host"
-}
-variable "amis" {
+
+variable "accessip" {}
+
+#-------compute variables
+
+variable "key_name" {}
+
+variable "instances_type01" {}
+
+variable "amazon_ami" {
   type = map(string)
-  default = {
-    us-east-1    = "ami-047a51fa27710816e"
-    eu-central-1 = "ami-0a6dc7529cd559185"
-    eu-north-1   = "ami-0eb6f319b31f7092d"
-  }
-}
-variable "volumeType" {
-  default = "gp2"
-}
-variable "volumeSize" {
-  default = 15
 }

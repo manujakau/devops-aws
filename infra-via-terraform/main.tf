@@ -1,52 +1,31 @@
+
 provider "aws" {
   profile = var.profile
-  region  = var.region
+  region  = var.aws_region
 }
 
-resource "aws_security_group" "allow-ssh" {
-  vpc_id      = var.vpc
-  name        = "allow-ssh"
-  description = "security group that allows ssh and all egress traffic"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "allow-ssh"
-  }
+# Deploy Networking Resources
+module "networking" {
+  source       = "./networking"
+  vpc_cidr     = var.vpc_cidr
+  public_cidrs = var.public_cidrs
+  accessip     = var.accessip
 }
 
-resource "aws_instance" "testvm" {
-  ami                    = var.amis[var.region]
-  subnet_id              = var.subnet
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id]
-  key_name               = var.keyName
-  instance_type          = var.instanceType
-  root_block_device {
-    volume_size = var.volumeSize
-    volume_type = var.volumeType
-  }
-  tags = {
-    Name = var.instanceName
-  }
-  volume_tags = {
-    Name = var.instanceName
-  }
-  user_data = data.template_cloudinit_config.cloudinit-example.rendered
+## Deploy Compute Resources
+module "compute" {
+  source         = "./compute"
+  region         = var.aws_region
+  key_name       = var.key_name
+  instance_type  = var.instances_type01
+  subnets        = module.networking.public_subnets
+  security_group = module.networking.public_sg
+  subnet_ips     = module.networking.subnet_ips
 }
+
+## deploy storage resource
+#module "storage" {
+#  source       = "./storage"
+#  project_name = var.project_name
+#}
+#
