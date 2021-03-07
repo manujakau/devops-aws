@@ -267,7 +267,7 @@ EOF
 kubectl apply -f nginx.yaml
 
 kubectl get deployments
-kubectl get pods
+kubectl get pods -o wide
 
 kubectl expose deployment test-nginx --port=80 --type=LoadBalancer
 ```
