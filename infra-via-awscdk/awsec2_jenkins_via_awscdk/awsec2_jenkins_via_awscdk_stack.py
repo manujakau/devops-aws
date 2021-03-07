@@ -202,6 +202,15 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
             aws_ec2.Port.tcp(22),
             description="allow ssh"
         )
+        test_server5.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(80),
+            description="allow ssh"
+        )
+        test_server5.connections.allow_from_any_ipv4(
+            aws_ec2.Port.tcp(443),
+            description="allow ssh"
+        )
+
 
         # add permission to k8s instances profile
         test_server5.role.add_managed_policy(
@@ -234,7 +243,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         host_zone = aws_route53.PrivateHostedZone(
             self,
             "HostedZone",
-            zone_name="k8stest.com",
+            zone_name="ssak8stest.com",
             vpc=custom_vpc
         )
 
@@ -242,7 +251,7 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         k8s_bucket = aws_s3.Bucket(
             self,
             "k8sBucket",
-            bucket_name="demok8stest.com",
+            bucket_name="demo.ssak8stest.com",
             versioned=True,
             removal_policy=core.RemovalPolicy.DESTROY
         )
