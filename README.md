@@ -268,6 +268,11 @@ kubectl apply -f nginx.yaml
 
 kubectl get deployments
 kubectl get pods -o wide
-
-kubectl expose deployment test-nginx --port=80 --type=LoadBalancer
 ```
+
+Expose nginx service to public
+```
+kubectl expose deployment test-nginx --port=80 --type=LoadBalancer
+kubectl get service
+```
+![kubctl-get-service](https://user-images.githubusercontent.com/44127516/110231559-1f420200-7f21-11eb-80b0-b4efadcac326.JPG)
