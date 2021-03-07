@@ -276,3 +276,5 @@ kubectl expose deployment test-nginx --port=80 --type=LoadBalancer
 kubectl get service
 ```
 ![kubctl-get-service](https://user-images.githubusercontent.com/44127516/110231559-1f420200-7f21-11eb-80b0-b4efadcac326.JPG)
+
+And add forward port (in this case - 31184) to kubectl master node security group.
