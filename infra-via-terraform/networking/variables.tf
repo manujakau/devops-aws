@@ -5,3 +5,5 @@ variable "public_cidrs" {
 }
 
 variable "accessip" {}
+
+variable "host_zone" {}
