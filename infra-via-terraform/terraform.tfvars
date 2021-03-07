@@ -2,7 +2,9 @@ profile = "default"
 
 aws_region = "eu-north-1"
 
-project_name = "devops-aws"
+s3_bucket_name = "demo2.ssak8stest.com"
+
+host_zone_name = "ssak8stest2.com"
 
 vpc_cidr = "10.0.0.0/20"
 
@@ -16,8 +18,4 @@ key_name = "WP"
 
 instances_type01 = "t3.micro"
 
-amazon_ami = {
-  us-east-1    = "ami-047a51fa27710816e"
-  eu-central-1 = "ami-0a6dc7529cd559185"
-  eu-north-1   = "ami-02a6bfdcf8224bd77"
-}
+instances_type02 = "t3.small"

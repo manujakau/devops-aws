@@ -4,7 +4,7 @@ variable "aws_region" {}
 
 #------ storage variables
 
-variable "project_name" {}
+variable "s3_bucket_name" {}
 
 #-------networking variables
 
@@ -16,12 +16,12 @@ variable "public_cidrs" {
 
 variable "accessip" {}
 
+variable "host_zone_name" {}
+
 #-------compute variables
 
 variable "key_name" {}
 
 variable "instances_type01" {}
 
-variable "amazon_ami" {
-  type = map(string)
-}
+variable "instances_type02" {}
