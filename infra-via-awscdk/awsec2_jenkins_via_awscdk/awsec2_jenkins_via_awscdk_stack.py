@@ -204,11 +204,11 @@ class Awsec2JenkinsViaAwscdkStack(core.Stack):
         )
         test_server5.connections.allow_from_any_ipv4(
             aws_ec2.Port.tcp(80),
-            description="allow ssh"
+            description="allow http"
         )
         test_server5.connections.allow_from_any_ipv4(
             aws_ec2.Port.tcp(443),
-            description="allow ssh"
+            description="allow https"
         )
 
 
