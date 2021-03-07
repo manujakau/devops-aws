@@ -228,5 +228,5 @@ aws configure # only requred to have region
 export KOPS_STATE_STORE=s3://demo.ssak8stest.com
 ssh-keygen
 kops create cluster --cloud=aws --zones=eu-central-1a --name=demo.ssak8stest.com --dns-zone=ssak8stest.com --dns private
-kops update cluster demo.ssak8stest.com --yes
+kops update cluster demo.ssak8stest.com --yes --admin
 ```
