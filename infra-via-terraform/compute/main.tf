@@ -15,6 +15,22 @@ data "aws_ami" "server_ami" {
   }
 }
 
+data "aws_ami" "server_ami2" {
+  most_recent = true
+  owners      = ["099720109477"] #Canonical
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+}
+
+
 resource "aws_instance" "jenkins_server" {
   count         = 1
   instance_type = var.instance_type
@@ -58,4 +74,20 @@ resource "aws_instance" "ansible_server" {
   vpc_security_group_ids = [var.security_group]
   subnet_id              = var.subnets[count.index]
   user_data              = data.template_cloudinit_config.cloudinit-ansible.rendered
+}
+
+resource "aws_instance" "k8s_server" {
+  count                = 1
+  instance_type        = var.instance_type_kube
+  ami                  = data.aws_ami.server_ami2.id
+  iam_instance_profile = aws_iam_instance_profile.k8s_profile.name
+
+  tags = {
+    Name = "K8s_Host"
+  }
+
+  key_name               = var.key_name
+  vpc_security_group_ids = [var.security_group_kube]
+  subnet_id              = var.subnets[count.index]
+  user_data              = data.template_cloudinit_config.cloudinit-k8s.rendered
 }

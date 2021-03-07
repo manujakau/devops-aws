@@ -41,3 +41,18 @@ data "template_cloudinit_config" "cloudinit-ansible" {
     content      = data.template_file.shell-script-ansible.rendered
   }
 }
+
+
+data "template_file" "shell-script-k8s" {
+  template = file("scripts/k8s.sh")
+}
+
+data "template_cloudinit_config" "cloudinit-k8s" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = data.template_file.shell-script-k8s.rendered
+  }
+}
