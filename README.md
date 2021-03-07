@@ -3,7 +3,7 @@ devops environment for build and release
 
 Create jenkins server using Terraform
 ```
-cd awsec2-jenkins-via-terraform
+cd infra-via-terraform
 terraform init
 terraform plan
 terraform apply
@@ -11,7 +11,7 @@ terraform apply
 
 Create jenkins server using aws-cdk
 ```
-cd awsec2-jenkins-via-awscdk
+cd infra-via-awscdk
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 $ pip3 install -r requirements.txt
