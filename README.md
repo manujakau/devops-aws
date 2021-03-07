@@ -230,3 +230,42 @@ ssh-keygen
 kops create cluster --cloud=aws --zones=eu-central-1a --name=demo.ssak8stest.com --dns-zone=ssak8stest.com --dns private
 kops update cluster demo.ssak8stest.com --yes --admin
 ```
+
+ssh to the master:
+```
+ssh -i ~/.ssh/id_rsa ubuntu@api.demo.ssak8stest.com
+```
+
+To test kubctl :
+```
+touch nginx.yaml
+
+cat <<EOF | tee nginx.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+EOF
+
+kubectl apply -f nginx.yaml
+
+kubectl get deployments
+kubectl get pods
+```
