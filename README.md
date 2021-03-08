@@ -353,7 +353,7 @@ cat <<EOF | tee kubernetes/deployment.yaml
  
   tasks: 
   - name: create a deployment
-    command: kubectl apply -f demo-deploy.yml
+    command: kubectl apply -f demo-deploy.yaml
 EOF
 ```
 ```
@@ -368,6 +368,6 @@ cat <<EOF | tee kubernetes/service.yqml
 
   tasks:
   - name: create a service
-    command: kubectl apply -f demo-service.yml
+    command: kubectl apply -f demo-service.yaml
 EOF
 ```
