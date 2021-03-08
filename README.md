@@ -219,7 +219,6 @@ ansible-playbook -i /opt/docker/hosts /opt/docker/test-container.yml --limit 10.
 
 
 ### Setup K8s 
-yet to complete..
 
 log into k8s-host
 ```
