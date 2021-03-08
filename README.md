@@ -278,3 +278,96 @@ kubectl get service
 ![kubctl-get-service](https://user-images.githubusercontent.com/44127516/110231559-1f420200-7f21-11eb-80b0-b4efadcac326.JPG)
 
 And add forward port (in this case - 31184) to kubectl master node security group.
+
+Create demo app deplyment on k8s master
+```
+touch demo-deploy.yaml
+cat <<EOF | tee demo-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  selector:
+    matchLabels:
+      app: demo-devops-app
+  replicas: 2 # 2 pods to run
+
+  template:
+    metadata:
+      labels:
+        app: demo-devops-app
+    spec:
+      containers:
+      - name: demo-devops-app
+        image: manuja/devops-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+EOF
+```
+```
+touch demo-service.yaml
+cat <<EOF | tee demo-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  labels:
+    app: demo-devops-app
+spec:
+  selector:
+    app: demo-devops-app
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 31150
+EOF
+```
+
+Configure ansible server with k8s cluster:
+```
+Copy ansadmin public id_rsa into k8s master authorized_keys .
+cd /opt
+sudo mkdir kubernetes && sudo chown ansadmin kubernetes
+touch kubernetes/hosts
+
+cat <<EOF | tee kubernetes/hosts
+[ansible-server]
+localhost
+
+[kubernetes]
+xx.xxx.xx.xx
+EOF
+
+```
+```
+touch kubernetes/deployment.yaml
+cat <<EOF | tee kubernetes/deployment.yaml
+---
+- name: Create pods using deployment 
+  hosts: kubernetes 
+  # become: true
+  user: ubuntu
+ 
+  tasks: 
+  - name: create a deployment
+    command: kubectl apply -f demo-deploy.yml
+EOF
+```
+```
+touch kubernetes/service.yqml
+cat <<EOF | tee kubernetes/service.yqml
+
+---
+- name: create service for deployment
+  hosts: kubernetes
+  # become: true
+  user: ubuntu
+
+  tasks:
+  - name: create a service
+    command: kubectl apply -f demo-service.yml
+EOF
+```
