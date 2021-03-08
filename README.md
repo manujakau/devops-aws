@@ -396,3 +396,54 @@ Add CD project to run via CI
 setup post build --> build other project as in below image.
 ```
 ![k8s-cd-build](https://user-images.githubusercontent.com/44127516/110296225-c181e880-7ffa-11eb-8497-438ae28476ab.jpg)
+
+Add roleout for exsiting containers:
+```
+Modify demo-deploy.yaml in k8s master.
+cat <<EOF | tee kubernetes/demo-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  selector:
+    matchLabels:
+      app: demo-devops-app
+  replicas: 2 # 2 pods to run
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
+  template:
+    metadata:
+      labels:
+        app: demo-devops-app
+    spec:
+      containers:
+      - name: demo-devops-app
+        image: manuja/devops-image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+EOF
+```
+```
+Modify deployment.yaml in ansible host
+cat <<EOF | tee kubernetes/deployment.yaml
+---
+- name: Create pods using deployment 
+  hosts: kubernetes 
+  # become: true
+  user: ubuntu
+ 
+  tasks: 
+  - name: create a deployment
+    command: kubectl apply -f demo-deploy.yaml
+
+  - name: deployment with new pods if new image avilable
+    command: kubectl rollout restart deployment.v1.apps/demo-deployment
+EOF
+```
