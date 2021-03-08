@@ -400,7 +400,7 @@ setup post build --> build other project as in below image.
 Add roleout for exsiting containers:
 ```
 Modify demo-deploy.yaml in k8s master.
-cat <<EOF | tee kubernetes/demo-deploy.yaml
+cat <<EOF | tee demo-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
