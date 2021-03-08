@@ -390,3 +390,9 @@ Create new job with copy from deploy-to-container-via-ansible playbook.
 
 ```
 ![k8s-ci](https://user-images.githubusercontent.com/44127516/110294428-88487900-7ff8-11eb-9141-ce6a8372b09e.jpg)
+
+Add CD project to run via CI
+```
+setup post build --> build other project as in below image.
+```
+![k8s-cd-build](https://user-images.githubusercontent.com/44127516/110296225-c181e880-7ffa-11eb-8497-438ae28476ab.jpg)
