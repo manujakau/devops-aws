@@ -377,3 +377,8 @@ ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/service.yaml
 ```
 
 Initiate k8s deployment via jenkins
+```
+Create new free-style job in jenkins
+Config post build as below image
+```
+![k8s-ansible-post](https://user-images.githubusercontent.com/44127516/110291899-1f133680-7ff5-11eb-8dba-8854e18dd111.jpg)
