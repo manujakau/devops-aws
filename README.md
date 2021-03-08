@@ -376,3 +376,4 @@ ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/deployment.yaml
 ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/service.yaml
 ```
 
+Initiate k8s deployment via jenkins
