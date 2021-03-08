@@ -358,8 +358,7 @@ EOF
 ```
 ```
 touch kubernetes/service.yqml
-cat <<EOF | tee kubernetes/service.yqml
-
+cat <<EOF | tee kubernetes/service.yaml
 ---
 - name: create service for deployment
   hosts: kubernetes
