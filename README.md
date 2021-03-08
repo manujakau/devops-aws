@@ -381,3 +381,12 @@ Create new free-style job in jenkins
 Config post build as below image
 ```
 ![k8s-ansible-post](https://user-images.githubusercontent.com/44127516/110291899-1f133680-7ff5-11eb-8dba-8854e18dd111.jpg)
+
+To deploy demo-app to k8s cluster:
+
+CI job
+```
+Create new job with copy from deploy-to-container-via-ansible playbook.
+
+```
+![k8s-ci](https://user-images.githubusercontent.com/44127516/110294428-88487900-7ff8-11eb-9141-ce6a8372b09e.jpg)
