@@ -357,7 +357,7 @@ cat <<EOF | tee kubernetes/deployment.yaml
 EOF
 ```
 ```
-touch kubernetes/service.yqml
+touch kubernetes/service.yaml
 cat <<EOF | tee kubernetes/service.yaml
 ---
 - name: create service for deployment
@@ -370,3 +370,9 @@ cat <<EOF | tee kubernetes/service.yaml
     command: kubectl apply -f demo-service.yaml
 EOF
 ```
+From ansible host:
+```
+ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/deployment.yaml
+ansible-playbook -i /opt/kubernetes/hosts /opt/kubernetes/service.yaml
+```
+
